@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LOG_DIR="/root/logs"
-LOG_FILE="$LOG_DIR/informe_pokeapi_next.log"
+LOG_FILE="$LOG_DIR/informe_pokeapi_nest.log"
 
 log() {
     echo "$1"
@@ -20,38 +20,35 @@ load_entrypoint_nginx(){
 }
 
 directorio_de_trabajo(){
-    log "Cambiando directorio al proyecto PokeAPI Next.js..."
+    log "Cambiando directorio al proyecto NestJS (PokeAPI)..."
 
-    if cd /root/admin/node/proyectos/pokeapi_next; then
+    if cd /root/admin/node/proyectos/nest_api; then
         log "Directorio cambiado a: $(pwd)"
     else
-        log "ERROR: No se pudo cambiar al directorio del proyecto PokeAPI Next.js"
+        log "ERROR: No se pudo cambiar al directorio del proyecto NestJS"
         exit 1
     fi
 }
 
 construir_y_arrancar(){
-    log "Usando API URL: $NEXT_PUBLIC_API_URL"
-    export NEXT_PUBLIC_API_URL
-    
-    log "Limpiando node_modules previos e instalando dependencias..."
+    log "Instalando dependencias..."
     rm -rf node_modules
     npm install
     
     # Asegurar permisos de ejecución para los binarios de node_modules
     chmod -R +x node_modules/.bin
     
-    # Construir proyecto Next.js
+    # Construir proyecto NestJS
     if npm run build; then
-        log "Proyecto PokeAPI Next.js construido"
+        log "Proyecto NestJS (PokeAPI) construido"
     else
         log "ERROR: Falló npm run build"
         exit 1
     fi
     
-    # Arrancar Next.js en segundo plano
-    log "Arrancando PokeAPI Next.js en segundo plano..."
-    HOST=0.0.0.0 PORT=3000 npm start &
+    # Arrancar NestJS en segundo plano
+    log "Arrancando NestJS (PokeAPI) en segundo plano..."
+    npm run start:prod &
 }
 
 cargar_nginx(){
