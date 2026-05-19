@@ -26,14 +26,14 @@ backend:
     repository: kuklusklan/restaurante_backend01
     tag: latest
     pullPolicy: Always
-  replicas: 1
-  containerPort: 3000
+  replicas: 2
+  containerPort: 4000
   ssh:
     port: 3456
     nodePort: 30556
   service:
     type: ClusterIP  # Cambiado a ClusterIP, el Ingress redirige
-    port: 3000
+    port: 4000
     nodePort: 30080
 
 frontend:
@@ -42,7 +42,7 @@ frontend:
     repository: kuklusklan/restaurante_frontend01
     tag: latest
     pullPolicy: Always
-  replicas: 1
+  replicas: 2
   containerPort: 3000
   nginxPort: 80
   apiUrl: "https://api.vuelaguadalinfo.eu"  # API con subdominio
@@ -56,9 +56,9 @@ frontend:
 
 ingress:
   enabled: true  # HABILITADO - usamos dominio
-  className: "public"
+  className: "nginx"
   annotations:
-    kubernetes.io/ingress.class: public
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
   tls:
@@ -84,7 +84,7 @@ ingress:
     # Backend API - api.vuelaguadalinfo.eu
     - host: "api.vuelaguadalinfo.eu"
       serviceName: restaurante-backend
-      servicePort: 3000
+      servicePort: 4000
       paths:
         - path: /
           pathType: Prefix
