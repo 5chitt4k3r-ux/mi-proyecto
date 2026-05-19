@@ -65,15 +65,26 @@ echo "  ⚠️  Asegúrate de haber hecho 'docker login' manualmente antes:"
 echo "    docker login --username $DOCKER_USER"
 echo ""
 
+# Detectar si usar docker-compose o docker compose
+if command -v docker-compose &> /dev/null; then
+    DOCKER_COMPOSE="docker-compose"
+elif docker compose version &> /dev/null; then
+    DOCKER_COMPOSE="docker compose"
+else
+    echo "  ERROR: No se encuentra docker-compose ni docker compose."
+    echo "  Instálalo con: apt-get install -y docker-compose-plugin"
+    exit 1
+fi
+
 build_and_push() {
     local name=$1
     local path=$2
     echo ""
     echo "  --- Construyendo $name ---"
     cd "$path"
-    docker-compose build
+    $DOCKER_COMPOSE build
     echo "  --- Subiendo $name a Docker Hub ---"
-    docker-compose push
+    $DOCKER_COMPOSE push
     echo "  ✅ $name completado"
 }
 
