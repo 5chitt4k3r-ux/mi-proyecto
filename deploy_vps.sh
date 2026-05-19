@@ -66,19 +66,13 @@ echo "[3/7] Copiando proyectos a las rutas que esperan los dockerfiles..."
 echo "  ✅ Proyectos copiados (si estaban en el repo)"
 
 # ============================================================
-# PASO 4: INICIAR SESIÓN EN DOCKER HUB
+# PASO 4: CONSTRUIR Y SUBIR IMÁGENES DOCKER
 # ============================================================
 echo ""
-echo "[4/7] Iniciando sesión en Docker Hub..."
-echo "  IMPORTANTE: Introduce tu contraseña de Docker Hub cuando te la pida"
-docker login --username "$DOCKER_USER"
-echo "  ✅ Sesión iniciada en Docker Hub"
-
-# ============================================================
-# PASO 5: CONSTRUIR Y SUBIR IMÁGENES DOCKER
-# ============================================================
+echo "[4/7] Construyendo y subiendo imágenes Docker..."
+echo "  ⚠️  Asegúrate de haber hecho 'docker login' manualmente antes:"
+echo "    docker login --username TiamatV1"
 echo ""
-echo "[5/7] Construyendo y subiendo imágenes Docker..."
 
 build_and_push() {
     local name=$1
@@ -104,10 +98,10 @@ echo ""
 echo "  ✅ Todas las imágenes construidas y subidas"
 
 # ============================================================
-# PASO 6: DESPLEGAR CON HELM
+# PASO 5: DESPLEGAR CON HELM
 # ============================================================
 echo ""
-echo "[6/7] Desplegando con Helm en MicroK8s..."
+echo "[5/7] Desplegando con Helm en MicroK8s..."
 
 # Verificar que MicroK8s está funcionando
 echo "  Verificando MicroK8s..."
@@ -131,10 +125,10 @@ fi
 echo "  ✅ Helm desplegado correctamente"
 
 # ============================================================
-# PASO 7: VERIFICAR EL DESPLIEGUE
+# PASO 6: VERIFICAR EL DESPLIEGUE
 # ============================================================
 echo ""
-echo "[7/7] Verificando el despliegue..."
+echo "[6/7] Verificando el despliegue..."
 
 echo ""
 echo "========================================"
