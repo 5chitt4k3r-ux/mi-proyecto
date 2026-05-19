@@ -8,9 +8,9 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
-      'https://vuelaguadalinfo.eu',
-      'https://www.vuelaguadalinfo.eu',
-      'https://api.vuelaguadalinfo.eu',
+      'https://vuelaguadalinfogarrucha.eu',
+      'https://www.vuelaguadalinfogarrucha.eu',
+      'https://api.vuelaguadalinfogarrucha.eu',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,

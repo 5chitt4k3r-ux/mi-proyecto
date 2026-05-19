@@ -1,7 +1,7 @@
 # Default values for restaruante.
 global:
   iniciales: tiamat
-  domain: "vuelaguadalinfo.eu"  # Dominio principal
+  domain: "vuelaguadalinfogarrucha.eu"  # Dominio principal
   
 postgres:
   name: postgre01
@@ -45,7 +45,7 @@ frontend:
   replicas: 2
   containerPort: 3000
   nginxPort: 80
-  apiUrl: "https://api.vuelaguadalinfo.eu"  # API con subdominio
+  apiUrl: "https://api.vuelaguadalinfogarrucha.eu"  # API con subdominio
   ssh:
     port: 3456
     nodePort: 30557
@@ -63,26 +63,26 @@ ingress:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
   tls:
     - hosts:
-        - "vuelaguadalinfo.eu"
-        - "www.vuelaguadalinfo.eu"
-        - "api.vuelaguadalinfo.eu"
-      secretName: vuelaguadalinfo-tls
+        - "vuelaguadalinfogarrucha.eu"
+        - "www.vuelaguadalinfogarrucha.eu"
+        - "api.vuelaguadalinfogarrucha.eu"
+      secretName: vuelaguadalinfogarrucha-tls
   hosts:
-    # Frontend - www.vuelaguadalinfo.eu y vuelaguadalinfo.eu
-    - host: "vuelaguadalinfo.eu"
+    # Frontend - www.vuelaguadalinfogarrucha.eu y vuelaguadalinfogarrucha.eu
+    - host: "vuelaguadalinfogarrucha.eu"
       serviceName: restaurante-frontend
       servicePort: 3000
       paths:
         - path: /
           pathType: Prefix
-    - host: "www.vuelaguadalinfo.eu"
+    - host: "www.vuelaguadalinfogarrucha.eu"
       serviceName: restaurante-frontend
       servicePort: 3000
       paths:
         - path: /
           pathType: Prefix
     # Backend API - api.vuelaguadalinfo.eu
-    - host: "api.vuelaguadalinfo.eu"
+    - host: "api.vuelaguadalinfogarrucha.eu"
       serviceName: restaurante-backend
       servicePort: 4000
       paths:

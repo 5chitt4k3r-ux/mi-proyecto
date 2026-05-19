@@ -24,7 +24,7 @@ REPO_SUBDIR="matias-proyect/estanco/docker/estanco"
 MEGA_DIR="$PROYECTO_DIR/$REPO_SUBDIR"
 DOCKER_USER="kuklusklan"
 VPS_IP="31.222.114.57"
-DOMAIN="vuelaguadalinfo.eu"
+DOMAIN="vuelaguadalinfogarrucha.eu"
 
 # ============================================================
 # PASO 1: CLONAR EL REPOSITORIO

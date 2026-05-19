@@ -1,7 +1,7 @@
 # Documentación del Proyecto - Despliegue en VPS
 
 **VPS:** `31.222.114.57`
-**Dominio:** `vuelaguadalinfo.eu`
+**Dominio:** `vuelaguadalinfogarrucha.eu`
 **Usuario:** `TiamatV1`
 **Ruta base:** `/home/TiamatV1/proyecto_tfg/docker/megacrossover/`
 **Fecha:** Mayo 2026

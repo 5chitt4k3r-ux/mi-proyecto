@@ -215,8 +215,8 @@ Una vez que el Ingress esté desplegado y los DNS apunten a la IP del VPS:
 microk8s kubectl get ingress -n proyecto-nest
 
 # Probar desde el propio VPS
-curl -k https://vuelaguadalinfo.eu
-curl -k https://api.vuelaguadalinfo.eu
+curl -k https://vuelaguadalinfogarrucha.eu
+curl -k https://api.vuelaguadalinfogarrucha.eu
 ```
 
 ---
@@ -232,6 +232,6 @@ curl -k https://api.vuelaguadalinfo.eu
 | SSH Frontend | NodePort | 3456 | 30557 |
 
 **Dominios:**
-- `https://vuelaguadalinfo.eu` → Frontend
-- `https://www.vuelaguadalinfo.eu` → Frontend
-- `https://api.vuelaguadalinfo.eu` → Backend API
+- `https://vuelaguadalinfogarrucha.eu` → Frontend
+- `https://www.vuelaguadalinfogarrucha.eu` → Frontend
+- `https://api.vuelaguadalinfogarrucha.eu` → Backend API
