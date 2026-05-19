@@ -1,0 +1,88 @@
+# Default values for restaruante.
+global:
+  iniciales: tiamat
+  domain: "vuelaguadalinfo.eu"  # Dominio principal
+  
+postgres:
+  name: postgre01
+  image:
+    repository: TiamatV1/postgre01
+    tag: latest
+    pullPolicy: Always
+  auth:
+    database: tienda_online
+    username: postgres
+    password: usuario
+  service:
+    port: 5432
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClassName: "microk8s-hostpath"
+
+backend:
+  name: restaurante-backend
+  image:
+    repository: TiamatV1/restaurante_backend01
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+  containerPort: 3000
+  ssh:
+    port: 3456
+    nodePort: 30556
+  service:
+    type: ClusterIP  # Cambiado a ClusterIP, el Ingress redirige
+    port: 3000
+
+frontend:
+  name: restaurante-frontend
+  image:
+    repository: TiamatV1/restaurante_frontend01
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+  containerPort: 3000
+  nginxPort: 80
+  apiUrl: "https://api.vuelaguadalinfo.eu"  # API con subdominio
+  ssh:
+    port: 3456
+    nodePort: 30557
+  service:
+    type: ClusterIP  # Cambiado a ClusterIP, el Ingress redirige
+    port: 3000
+
+ingress:
+  enabled: true  # HABILITADO - usamos dominio
+  className: "public"
+  annotations:
+    kubernetes.io/ingress.class: public
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  tls:
+    - hosts:
+        - "vuelaguadalinfo.eu"
+        - "www.vuelaguadalinfo.eu"
+        - "api.vuelaguadalinfo.eu"
+      secretName: vuelaguadalinfo-tls
+  hosts:
+    # Frontend - www.vuelaguadalinfo.eu y vuelaguadalinfo.eu
+    - host: "vuelaguadalinfo.eu"
+      serviceName: restaurante-frontend
+      servicePort: 3000
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: "www.vuelaguadalinfo.eu"
+      serviceName: restaurante-frontend
+      servicePort: 3000
+      paths:
+        - path: /
+          pathType: Prefix
+    # Backend API - api.vuelaguadalinfo.eu
+    - host: "api.vuelaguadalinfo.eu"
+      serviceName: restaurante-backend
+      servicePort: 3000
+      paths:
+        - path: /
+          pathType: Prefix

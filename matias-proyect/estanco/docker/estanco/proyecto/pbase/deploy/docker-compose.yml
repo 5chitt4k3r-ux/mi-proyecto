@@ -1,0 +1,25 @@
+name: pbase
+services:
+  web:
+    build:
+      context: /home/TiamatV1/proyecto_tfg/docker/megacrossover/
+      dockerfile: ./dockerfiles/ubbase/tiamatubbase
+      args:
+        - INICIALES=tiamat
+    container_name: cttiamatbase01
+    image: TiamatV1/ubbase01
+    ports:
+      - 22:22
+    env_file:
+      - ./.env
+    volumes:
+      - ./logs:/root/logs
+    networks:
+      pbase_network:
+        ipv4_address: 192.168.20.3
+networks:
+  pbase_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.20.0/24

@@ -1,0 +1,27 @@
+FROM TiamatV1/nginx101
+
+# Instalar Node.js 22
+RUN apt-get update && apt-get install -y curl gnupg software-properties-common
+RUN apt-get install -y curl ca-certificates gnupg
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+RUN apt-get install -y nodejs
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
+RUN node --version && npm --version
+
+# Crear directorio para el proyecto NextJS
+RUN mkdir -p /root/admin/node/proyectos/restaurante_frontend
+WORKDIR /root/admin/node
+
+# Copiar el proyecto NextJS (ruta corregida)
+COPY ./proyecto/prestaurante/estanco-arboleas-frontend/ /root/admin/node/proyectos/restaurante_frontend/
+
+# Directorio base para Nginx
+RUN mkdir -p /root/admin/nginxrestaurante
+WORKDIR /root/admin/nginxrestaurante
+
+# Copiar el script de entrypoint
+COPY ./dockerfiles/nginxrestaurante/admin/tiamatstart.sh .
+RUN chmod +x ./tiamatstart.sh
+
+ENTRYPOINT ["./tiamatstart.sh"]

@@ -1,0 +1,28 @@
+name: pseguridad
+services:
+  web:
+    build:
+      context: /home/TiamatV1/proyecto_tfg/docker/megacrossover/
+      dockerfile: ./dockerfiles/ubseguridad/tiamatubseguridad
+      args:
+        - INICIALES=tiamat
+    container_name: cttiamatseguridad01
+    image: TiamatV1/ubseguridad01
+    ports:
+      - 25:22
+    env_file:
+      - ./.env
+    volumes:
+      - ./logs:/root/logs
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      pseguridad_network:
+        ipv4_address: 192.168.21.3
+networks:
+  pseguridad_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.21.0/24

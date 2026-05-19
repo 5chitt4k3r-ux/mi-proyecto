@@ -1,0 +1,24 @@
+services:
+  web:
+    build:
+      context: /home/TiamatV1/proyecto_tfg/docker/megacrossover/
+      dockerfile: ./dockerfiles/nginxpokeapinext/dockerfile
+      args:
+        - INICIALES=tiamat
+    container_name: cttiamatnginxpokeapi
+    image: TiamatV1/nginxpokeapi
+    ports:
+      - 3010:3001
+    env_file:
+      - ./.env
+    volumes:
+      - ./logs:/root/logs
+    networks:
+      pnautocaravaneando:
+        ipv4_address: ${IP_WEB}
+networks:
+  pnautocaravaneando:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${SUBNET}

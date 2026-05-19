@@ -1,0 +1,22 @@
+FROM TiamatV1/ubseguridad01
+
+ARG INICIALES
+
+USER root
+RUN apt update && apt install -yq --no-install-recommends \
+    nginx
+
+
+RUN chown -R www-data /var/www/html
+RUN chmod -R 755 /var/www/html
+
+#instalo nginx/apache --> usuario www-data
+RUN mkdir -p /var/log/nginx
+EXPOSE 80
+
+RUN mkdir -p /root/admin/sweb/nginx
+WORKDIR /root/admin/sweb/nginx
+COPY ./dockerfiles/sweb/nginx/admin .
+RUN chmod +x /root/admin/sweb/nginx/tiamatstart.sh
+
+ENTRYPOINT ["./tiamatstart.sh"]

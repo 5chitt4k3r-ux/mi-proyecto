@@ -1,0 +1,23 @@
+name: ppostgre
+services:
+  web:
+    build:
+      context: /home/TiamatV1/proyecto_tfg/docker/megacrossover/
+      dockerfile: ./dockerfiles/postgre/tiamatpostgre
+      args:
+        - INICIALES=tiamat
+    container_name: cttiamatpostgre01
+    image: TiamatV1/postgre01
+    ports:
+      - 5432:5432
+    volumes:
+      - ./logs:/root/logs
+    networks:
+      ppostgre_network:
+        ipv4_address: 192.168.27.3
+networks:
+  ppostgre_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.27.0/24
