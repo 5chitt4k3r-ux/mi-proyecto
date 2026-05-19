@@ -2,12 +2,12 @@ name: pbase
 services:
   web:
     build:
-      context: /home/TiamatV1/proyecto_tfg/docker/megacrossover/
+      context: /home/kuklusklan/proyecto_tfg/docker/megacrossover/
       dockerfile: ./dockerfiles/ubbase/tiamatubbase
       args:
         - INICIALES=tiamat
     container_name: cttiamatbase01
-    image: TiamatV1/ubbase01
+    image: kuklusklan/ubbase01
     ports:
       - 22:22
     env_file:

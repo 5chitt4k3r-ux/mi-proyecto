@@ -1,12 +1,12 @@
 services:
   web:
     build:
-      context: /home/TiamatV1/proyecto_tfg/docker/megacrossover/
+      context: /home/kuklusklan/proyecto_tfg/docker/megacrossover/
       dockerfile: ./dockerfiles/nest/tiamatrestaurante
       args:
         - INICIALES=tiamat
     container_name: cttiamatrestaurante
-    image: TiamatV1/restaurante_backend01
+    image: kuklusklan/restaurante_backend01
     ports:
       - 3000:3000
     env_file:

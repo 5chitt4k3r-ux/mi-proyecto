@@ -1,4 +1,4 @@
-FROM TiamatV1/nginx101
+FROM kuklusklan/nginx101
 
 # Instalar Node.js 22
 RUN apt-get update && apt-get install -y curl gnupg software-properties-common

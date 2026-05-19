@@ -2,12 +2,12 @@ name: pseguridad
 services:
   web:
     build:
-      context: /home/TiamatV1/proyecto_tfg/docker/megacrossover/
+      context: /home/kuklusklan/proyecto_tfg/docker/megacrossover/
       dockerfile: ./dockerfiles/ubseguridad/tiamatubseguridad
       args:
         - INICIALES=tiamat
     container_name: cttiamatseguridad01
-    image: TiamatV1/ubseguridad01
+    image: kuklusklan/ubseguridad01
     ports:
       - 25:22
     env_file:

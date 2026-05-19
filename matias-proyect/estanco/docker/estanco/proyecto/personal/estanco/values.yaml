@@ -6,7 +6,7 @@ global:
 postgres:
   name: postgre01
   image:
-    repository: TiamatV1/postgre01
+    repository: kuklusklan/postgre01
     tag: latest
     pullPolicy: Always
   auth:
@@ -23,7 +23,7 @@ postgres:
 backend:
   name: restaurante-backend
   image:
-    repository: TiamatV1/restaurante_backend01
+    repository: kuklusklan/restaurante_backend01
     tag: latest
     pullPolicy: Always
   replicas: 1
@@ -38,7 +38,7 @@ backend:
 frontend:
   name: restaurante-frontend
   image:
-    repository: TiamatV1/restaurante_frontend01
+    repository: kuklusklan/restaurante_frontend01
     tag: latest
     pullPolicy: Always
   replicas: 1

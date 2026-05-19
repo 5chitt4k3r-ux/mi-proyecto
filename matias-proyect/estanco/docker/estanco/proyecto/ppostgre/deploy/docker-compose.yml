@@ -2,12 +2,12 @@ name: ppostgre
 services:
   web:
     build:
-      context: /home/TiamatV1/proyecto_tfg/docker/megacrossover/
+      context: /home/kuklusklan/proyecto_tfg/docker/megacrossover/
       dockerfile: ./dockerfiles/postgre/tiamatpostgre
       args:
         - INICIALES=tiamat
     container_name: cttiamatpostgre01
-    image: TiamatV1/postgre01
+    image: kuklusklan/postgre01
     ports:
       - 5432:5432
     volumes:

@@ -19,7 +19,7 @@ echo "========================================"
 GITHUB_REPO="https://github.com/5chitt4k3r-ux/mi-proyecto.git"
 PROYECTO_DIR="/home/TiamatV1/proyecto_tfg"
 MEGA_DIR="$PROYECTO_DIR/docker/megacrossover"
-DOCKER_USER="TiamatV1"
+DOCKER_USER="kuklusklan"
 VPS_IP="31.222.114.57"
 DOMAIN="vuelaguadalinfo.eu"
 

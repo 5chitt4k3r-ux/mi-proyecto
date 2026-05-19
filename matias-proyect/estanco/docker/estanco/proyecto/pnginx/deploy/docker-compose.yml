@@ -2,12 +2,12 @@ name: pnginx
 services:
   web:
     build:
-      context: /home/TiamatV1/proyecto_tfg/docker/megacrossover/
+      context: /home/kuklusklan/proyecto_tfg/docker/megacrossover/
       dockerfile: ./dockerfiles/sweb/nginx/tiamatnginx
       args:
         - INICIALES=tiamat
     container_name: cttiamatnginx01
-    image: TiamatV1/nginx101
+    image: kuklusklan/nginx101
     ports:
       - 6969:80
     env_file:
