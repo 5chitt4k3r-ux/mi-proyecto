@@ -255,40 +255,10 @@ fi
 echo "  ✅ Helm desplegado correctamente"
 
 # ============================================================
-# PASO 5: CREAR CLUSTERISSUER PARA LET'S ENCRYPT
+# PASO 5: VERIFICAR EL DESPLIEGUE
 # ============================================================
 echo ""
-echo "[5/7] Creando ClusterIssuer para Let's Encrypt..."
-
-CLUSTER_ISSUER_EXISTS=$(microk8s kubectl get clusterissuer letsencrypt-prod --ignore-not-found 2>/dev/null)
-if [ -z "$CLUSTER_ISSUER_EXISTS" ]; then
-    echo "  Creando ClusterIssuer 'letsencrypt-prod'..."
-    microk8s kubectl apply -f - <<EOF
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt-prod
-spec:
-  acme:
-    email: 5chitt4k3r@gmail.com
-    server: https://acme-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:
-      name: letsencrypt-account-key
-    solvers:
-    - http01:
-        ingress:
-          ingressClassName: nginx
-EOF
-    echo "  ✅ ClusterIssuer 'letsencrypt-prod' creado"
-else
-    echo "  ✅ ClusterIssuer 'letsencrypt-prod' ya existe"
-fi
-
-# ============================================================
-# PASO 6: VERIFICAR EL DESPLIEGUE
-# ============================================================
-echo ""
-echo "[6/7] Verificando el despliegue..."
+echo "[5/7] Verificando el despliegue..."
 
 echo ""
 echo "========================================"
@@ -314,9 +284,9 @@ echo "  DESPLIEGUE COMPLETADO CON ÉXITO"
 echo "========================================"
 echo ""
 echo "  Accede a tu proyecto en:"
-echo "  - https://$DOMAIN"
-echo "  - https://www.$DOMAIN"
-echo "  - https://api.$DOMAIN"
+echo "  - http://$DOMAIN"
+echo "  - http://www.$DOMAIN"
+echo "  - http://api.$DOMAIN"
 echo ""
 echo "  Para ver los logs de un pod:"
 echo "    microk8s kubectl logs -n proyecto-nest -l app=restaurante-backend"
