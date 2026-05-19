@@ -309,7 +309,7 @@ personal/estanco/
 
 ```yaml
 apiVersion: v2
-name: restaruante
+name: estanco
 description: A Helm chart for Kubernetes
 type: application
 version: 0.1.0

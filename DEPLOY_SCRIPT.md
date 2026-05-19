@@ -166,10 +166,10 @@ cd /home/TiamatV1/proyecto_tfg/docker/megacrossover/personal/estanco
 
 ```bash
 # Si es la primera vez que se despliega:
-microk8s helm3 install restaruante . --namespace proyecto-nest --create-namespace
+microk8s helm3 install estanco . --namespace proyecto-nest --create-namespace
 
 # Si ya existe y quieres actualizar:
-# microk8s helm3 upgrade restaruante . --namespace proyecto-nest
+# microk8s helm3 upgrade estanco . --namespace proyecto-nest
 ```
 
 ### 4.4 Verificar el despliegue

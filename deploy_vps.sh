@@ -244,12 +244,12 @@ microk8s status --wait-ready 2>/dev/null || {
 cd "$MEGA_DIR/proyecto/personal/estanco"
 
 # Verificar si ya existe un despliegue
-if microk8s helm3 list -n proyecto-nest 2>/dev/null | grep -q "restaruante"; then
-    echo "  El despliegue 'restaruante' ya existe. Actualizando..."
-    microk8s helm3 upgrade restaruante . --namespace proyecto-nest
+if microk8s helm3 list -n proyecto-nest 2>/dev/null | grep -q "estanco"; then
+    echo "  El despliegue 'estanco' ya existe. Actualizando..."
+    microk8s helm3 upgrade estanco . --namespace proyecto-nest
 else
-    echo "  Instalando 'restaruante' por primera vez..."
-    microk8s helm3 install restaruante . --namespace proyecto-nest --create-namespace
+    echo "  Instalando 'estanco' por primera vez..."
+    microk8s helm3 install estanco . --namespace proyecto-nest --create-namespace
 fi
 
 echo "  ✅ Helm desplegado correctamente"

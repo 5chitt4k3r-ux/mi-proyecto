@@ -1,4 +1,4 @@
-# Default values for restaruante.
+# Default values for estanco.
 global:
   iniciales: tiamat
   domain: "vuelaguadalinfogarrucha.eu"  # Dominio principal
