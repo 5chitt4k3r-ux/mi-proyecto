@@ -8,7 +8,7 @@
 #   2. chmod +x deploy_vps.sh && ./deploy_vps.sh
 # ============================================================
 
-set -e  # Salir si hay error
+# NOTA: No usamos set -e para que el script continúe aunque falle un push
 
 echo "========================================"
 echo "  INICIANDO DESPLIEGUE DEL PROYECTO"
@@ -78,15 +78,141 @@ else
     exit 1
 fi
 
+# Función para crear .env si no existe
+create_env_if_missing() {
+    local deploy_path=$1
+    local env_file="$deploy_path/.env"
+    local dir_name=$(basename "$(dirname "$deploy_path")")
+    
+    if [ ! -f "$env_file" ]; then
+        echo "  ⚠️  .env no encontrado en $deploy_path. Creándolo..."
+        case "$dir_name" in
+            pbase)
+                cat > "$env_file" << 'ENVEOF'
+USUARIO=tiamat
+PASSWORD=1234
+PORT_SSH=23456
+IP_WEB=192.168.20.3
+SUBNET=192.168.20.0/24
+PROYECTO=restaurante_base01
+FIRMA=TiamatV1
+INICIALES=tiamat
+IMAGEN=kuklusklan/ubbase01
+CONTENEDOR=cttiamatbase01
+PORT_NODE=3010
+PORT_WWW=8810
+ENVEOF
+                ;;
+            pseguridad)
+                cat > "$env_file" << 'ENVEOF'
+USUARIO=tiamat
+PASSWORD=1234
+PORT_SSH=23456
+IP_WEB=192.168.21.3
+SUBNET=192.168.21.0/24
+PROYECTO=restaurante_seguridad01
+FIRMA=TiamatV1
+INICIALES=tiamat
+IMAGEN=kuklusklan/ubseguridad01
+CONTENEDOR=cttiamatseguridad01
+PORT_NODE=3010
+PORT_WWW=8810
+ENVEOF
+                ;;
+            pnginx)
+                cat > "$env_file" << 'ENVEOF'
+USUARIO=tiamat
+PASSWORD=1234
+PORT_SSH=23456
+IP_WEB=192.168.22.3
+SUBNET=192.168.22.0/24
+PROYECTO=nginx
+FIRMA=TiamatV1
+INICIALES=tiamat
+IMAGEN=kuklusklan/nginx101
+CONTENEDOR=cttiamatnginx01
+PORT_NODE=3010
+PORT_WWW=8810
+ENVEOF
+                ;;
+            ppostgre)
+                cat > "$env_file" << 'ENVEOF'
+USUARIO=tiamat
+PASSWORD=1234
+PORT_PG=5432
+IP_WEB=192.168.27.3
+SUBNET=192.168.27.0/24
+PROYECTO=restaurante_db01
+FIRMA=TiamatV1
+INICIALES=tiamat
+IMAGEN=kuklusklan/postgre01
+CONTENEDOR=cttiamatpostgre01
+ENVEOF
+                ;;
+            pnode)
+                cat > "$env_file" << 'ENVEOF'
+USUARIO=tiamat
+PASSWORD=1234
+PORT_SSH=23456
+IP_WEB=192.168.23.3
+SUBNET=192.168.23.0/24
+PROYECTO=restaurante_backend
+FIRMA=TiamatV1
+INICIALES=tiamat
+IMAGEN=kuklusklan/restaurante_backend01
+CONTENEDOR=cttiamatrestaurante
+PORT_NODE=3010
+PORT_WWW=8810
+ENVEOF
+                ;;
+            pnode_next)
+                cat > "$env_file" << 'ENVEOF'
+USUARIO=tiamat
+PASSWORD=1234
+PORT_SSH=23456
+IP_WEB=192.168.23.3
+SUBNET=192.168.23.0/24
+PROYECTO=restaurante_frontend
+FIRMA=TiamatV1
+INICIALES=tiamat
+IMAGEN=kuklusklan/restaurante_frontend01
+CONTENEDOR=cttiamatfrontend01
+PORT_NODE=3010
+PORT_WWW=8810
+ENVEOF
+                ;;
+            nest_api)
+                cat > "$env_file" << 'ENVEOF'
+USUARIO=tiamat
+PASSWORD=1234
+PORT_SSH=23456
+IP_WEB=192.168.25.3
+SUBNET=192.168.25.0/24
+PROYECTO=nginxpokeapi
+FIRMA=TiamatV1
+INICIALES=tiamat
+IMAGEN=kuklusklan/nginxpokeapi
+CONTENEDOR=cttiamatnginxpokeapi
+PORT_NODE=3010
+PORT_WWW=8810
+ENVEOF
+                ;;
+        esac
+        echo "  ✅ .env creado para $dir_name"
+    fi
+}
+
 build_and_push() {
     local name=$1
     local path=$2
     echo ""
     echo "  --- Construyendo $name ---"
+    # Crear .env si no existe
+    create_env_if_missing "$path"
     cd "$path"
     $DOCKER_COMPOSE build
     echo "  --- Subiendo $name a Docker Hub ---"
-    $DOCKER_COMPOSE push
+    $DOCKER_COMPOSE push || echo "  ⚠️  Push falló para $name, pero la imagen se construyó. Continuando..."
     echo "  ✅ $name completado"
 }
 
