@@ -34,6 +34,7 @@ backend:
   service:
     type: ClusterIP  # Cambiado a ClusterIP, el Ingress redirige
     port: 3000
+    nodePort: 30080
 
 frontend:
   name: restaurante-frontend
@@ -51,6 +52,7 @@ frontend:
   service:
     type: ClusterIP  # Cambiado a ClusterIP, el Ingress redirige
     port: 3000
+    nodePort: 30080
 
 ingress:
   enabled: true  # HABILITADO - usamos dominio
