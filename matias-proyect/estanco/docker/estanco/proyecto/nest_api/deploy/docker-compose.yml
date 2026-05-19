@@ -1,7 +1,7 @@
 services:
   web:
     build:
-      context: /home/kuklusklan/proyecto_tfg/docker/megacrossover/
+      context: ../../../
       dockerfile: ./dockerfiles/nginxpokeapinext/dockerfile
       args:
         - INICIALES=tiamat

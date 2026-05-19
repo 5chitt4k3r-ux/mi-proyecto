@@ -2,7 +2,7 @@ name: ppostgre
 services:
   web:
     build:
-      context: /home/kuklusklan/proyecto_tfg/docker/megacrossover/
+      context: ../../../
       dockerfile: ./dockerfiles/postgre/tiamatpostgre
       args:
         - INICIALES=tiamat

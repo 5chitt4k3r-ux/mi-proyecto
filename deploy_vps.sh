@@ -33,13 +33,15 @@ echo ""
 echo "[1/7] Clonando repositorio desde GitHub..."
 
 if [ -d "$PROYECTO_DIR" ]; then
-    echo "  El directorio $PROYECTO_DIR ya existe. Haciendo backup..."
-    mv "$PROYECTO_DIR" "${PROYECTO_DIR}_backup_$(date +%Y%m%d_%H%M%S)"
+    echo "  El directorio $PROYECTO_DIR ya existe. Actualizando con git pull..."
+    cd "$PROYECTO_DIR"
+    git pull
+    echo "  ✅ Repositorio actualizado correctamente"
+else
+    git clone "$GITHUB_REPO" "$PROYECTO_DIR"
+    cd "$PROYECTO_DIR"
+    echo "  ✅ Repositorio clonado correctamente"
 fi
-
-git clone "$GITHUB_REPO" "$PROYECTO_DIR"
-cd "$PROYECTO_DIR"
-echo "  ✅ Repositorio clonado correctamente"
 
 # ============================================================
 # PASO 2: VERIFICAR ESTRUCTURA

@@ -2,7 +2,7 @@ name: pnginx
 services:
   web:
     build:
-      context: /home/kuklusklan/proyecto_tfg/docker/megacrossover/
+      context: ../../../
       dockerfile: ./dockerfiles/sweb/nginx/tiamatnginx
       args:
         - INICIALES=tiamat
