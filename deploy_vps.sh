@@ -4,7 +4,8 @@
 # Proyecto: Docker + Kubernetes + Helm + NestJS + Next.js
 # ============================================================
 # EJECUTAR COMO ROOT EN EL VPS:
-#   chmod +x deploy_vps.sh && ./deploy_vps.sh
+#   1. docker login --username kuklusklan
+#   2. chmod +x deploy_vps.sh && ./deploy_vps.sh
 # ============================================================
 
 set -e  # Salir si hay error
@@ -18,7 +19,9 @@ echo "========================================"
 # ============================================================
 GITHUB_REPO="https://github.com/5chitt4k3r-ux/mi-proyecto.git"
 PROYECTO_DIR="/home/TiamatV1/proyecto_tfg"
-MEGA_DIR="$PROYECTO_DIR/docker/megacrossover"
+# Los archivos del proyecto están dentro de matias-proyect/estanco/docker/estanco/
+REPO_SUBDIR="matias-proyect/estanco/docker/estanco"
+MEGA_DIR="$PROYECTO_DIR/$REPO_SUBDIR"
 DOCKER_USER="kuklusklan"
 VPS_IP="31.222.114.57"
 DOMAIN="vuelaguadalinfo.eu"
@@ -39,39 +42,27 @@ cd "$PROYECTO_DIR"
 echo "  ✅ Repositorio clonado correctamente"
 
 # ============================================================
-# PASO 2: CREAR ESTRUCTURA DE DIRECTORIOS
+# PASO 2: VERIFICAR ESTRUCTURA
 # ============================================================
 echo ""
-echo "[2/7] Creando estructura de directorios para los proyectos..."
+echo "[2/7] Verificando estructura del proyecto..."
 
-mkdir -p "$MEGA_DIR/proyecto/prestaurante/estanco-arboleas-backend"
-mkdir -p "$MEGA_DIR/proyecto/prestaurante/estanco-arboleas-frontend"
-mkdir -p "$MEGA_DIR/proyecto/nest_api/proyecto"
-echo "  ✅ Directorios creados"
+if [ ! -d "$MEGA_DIR" ]; then
+    echo "  ERROR: No se encuentra la estructura esperada en $MEGA_DIR"
+    echo "  Contenido del repositorio:"
+    ls -la "$PROYECTO_DIR"
+    exit 1
+fi
 
-# ============================================================
-# PASO 3: COPIAR PROYECTOS A RUTAS DE DOCKERFILES
-# ============================================================
-echo ""
-echo "[3/7] Copiando proyectos a las rutas que esperan los dockerfiles..."
-
-# NOTA: Los proyectos deben estar en el repositorio de GitHub
-# Si están en el mismo repo, ya están en las rutas correctas
-# Si están en otro lado, descomenta las líneas siguientes y ajusta las rutas
-
-# cp -r /ruta/original/estanco-arboleas-backend/* "$MEGA_DIR/proyecto/prestaurante/estanco-arboleas-backend/"
-# cp -r /ruta/original/estanco-arboleas-frontend/* "$MEGA_DIR/proyecto/prestaurante/estanco-arboleas-frontend/"
-# cp -r /ruta/original/nest_api/proyecto/* "$MEGA_DIR/proyecto/nest_api/proyecto/"
-
-echo "  ✅ Proyectos copiados (si estaban en el repo)"
+echo "  ✅ Estructura verificada: $MEGA_DIR"
 
 # ============================================================
-# PASO 4: CONSTRUIR Y SUBIR IMÁGENES DOCKER
+# PASO 3: CONSTRUIR Y SUBIR IMÁGENES DOCKER
 # ============================================================
 echo ""
-echo "[4/7] Construyendo y subiendo imágenes Docker..."
+echo "[3/7] Construyendo y subiendo imágenes Docker..."
 echo "  ⚠️  Asegúrate de haber hecho 'docker login' manualmente antes:"
-echo "    docker login --username TiamatV1"
+echo "    docker login --username $DOCKER_USER"
 echo ""
 
 build_and_push() {
@@ -86,22 +77,22 @@ build_and_push() {
     echo "  ✅ $name completado"
 }
 
-build_and_push "ubbase (imagen base)" "$MEGA_DIR/pbase/deploy"
-build_and_push "ubseguridad (seguridad)" "$MEGA_DIR/pseguridad/deploy"
-build_and_push "nginx" "$MEGA_DIR/pnginx/deploy"
-build_and_push "postgresql" "$MEGA_DIR/ppostgre/deploy"
-build_and_push "backend nestjs (restaurante)" "$MEGA_DIR/pnode/deploy"
-build_and_push "frontend nextjs (restaurante)" "$MEGA_DIR/pnode_next/deploy"
-build_and_push "nginx pokeapi" "$MEGA_DIR/nest_api/deploy"
+build_and_push "ubbase (imagen base)" "$MEGA_DIR/proyecto/pbase/deploy"
+build_and_push "ubseguridad (seguridad)" "$MEGA_DIR/proyecto/pseguridad/deploy"
+build_and_push "nginx" "$MEGA_DIR/proyecto/pnginx/deploy"
+build_and_push "postgresql" "$MEGA_DIR/proyecto/ppostgre/deploy"
+build_and_push "backend nestjs (restaurante)" "$MEGA_DIR/proyecto/pnode/deploy"
+build_and_push "frontend nextjs (restaurante)" "$MEGA_DIR/proyecto/pnode_next/deploy"
+build_and_push "nginx pokeapi" "$MEGA_DIR/proyecto/nest_api/deploy"
 
 echo ""
 echo "  ✅ Todas las imágenes construidas y subidas"
 
 # ============================================================
-# PASO 5: DESPLEGAR CON HELM
+# PASO 4: DESPLEGAR CON HELM
 # ============================================================
 echo ""
-echo "[5/7] Desplegando con Helm en MicroK8s..."
+echo "[4/7] Desplegando con Helm en MicroK8s..."
 
 # Verificar que MicroK8s está funcionando
 echo "  Verificando MicroK8s..."
@@ -111,7 +102,7 @@ microk8s status --wait-ready 2>/dev/null || {
 }
 
 # Navegar al chart de Helm
-cd "$MEGA_DIR/personal/estanco"
+cd "$MEGA_DIR/proyecto/personal/estanco"
 
 # Verificar si ya existe un despliegue
 if microk8s helm3 list -n proyecto-nest 2>/dev/null | grep -q "restaruante"; then
@@ -125,10 +116,10 @@ fi
 echo "  ✅ Helm desplegado correctamente"
 
 # ============================================================
-# PASO 6: VERIFICAR EL DESPLIEGUE
+# PASO 5: VERIFICAR EL DESPLIEGUE
 # ============================================================
 echo ""
-echo "[6/7] Verificando el despliegue..."
+echo "[5/7] Verificando el despliegue..."
 
 echo ""
 echo "========================================"
