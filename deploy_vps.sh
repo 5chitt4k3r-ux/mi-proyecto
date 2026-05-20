@@ -94,7 +94,7 @@ PASSWORD=1234
 PORT_SSH=23456
 IP_WEB=192.168.20.3
 SUBNET=192.168.20.0/24
-PROYECTO=restaurante_base01
+PROYECTO=estanco_base01
 FIRMA=TiamatV1
 INICIALES=tiamat
 IMAGEN=kuklusklan/ubbase01
@@ -110,7 +110,7 @@ PASSWORD=1234
 PORT_SSH=23456
 IP_WEB=192.168.21.3
 SUBNET=192.168.21.0/24
-PROYECTO=restaurante_seguridad01
+PROYECTO=estanco_seguridad01
 FIRMA=TiamatV1
 INICIALES=tiamat
 IMAGEN=kuklusklan/ubseguridad01
@@ -142,7 +142,7 @@ PASSWORD=1234
 PORT_PG=5432
 IP_WEB=192.168.27.3
 SUBNET=192.168.27.0/24
-PROYECTO=restaurante_db01
+PROYECTO=estanco_db01
 FIRMA=TiamatV1
 INICIALES=tiamat
 IMAGEN=kuklusklan/postgre01
@@ -156,11 +156,11 @@ PASSWORD=1234
 PORT_SSH=23456
 IP_WEB=192.168.23.3
 SUBNET=192.168.23.0/24
-PROYECTO=restaurante_backend
+PROYECTO=estanco_backend
 FIRMA=TiamatV1
 INICIALES=tiamat
-IMAGEN=kuklusklan/restaurante_backend01
-CONTENEDOR=cttiamatrestaurante
+IMAGEN=kuklusklan/estanco_backend01
+CONTENEDOR=cttiamatestanco
 PORT_NODE=3010
 PORT_WWW=8810
 ENVEOF
@@ -172,10 +172,10 @@ PASSWORD=1234
 PORT_SSH=23456
 IP_WEB=192.168.23.3
 SUBNET=192.168.23.0/24
-PROYECTO=restaurante_frontend
+PROYECTO=estanco_frontend
 FIRMA=TiamatV1
 INICIALES=tiamat
-IMAGEN=kuklusklan/restaurante_frontend01
+IMAGEN=kuklusklan/estanco_frontend01
 CONTENEDOR=cttiamatfrontend01
 PORT_NODE=3010
 PORT_WWW=8810
@@ -220,8 +220,8 @@ build_and_push "ubbase (imagen base)" "$MEGA_DIR/proyecto/pbase/deploy"
 build_and_push "ubseguridad (seguridad)" "$MEGA_DIR/proyecto/pseguridad/deploy"
 build_and_push "nginx" "$MEGA_DIR/proyecto/pnginx/deploy"
 build_and_push "postgresql" "$MEGA_DIR/proyecto/ppostgre/deploy"
-build_and_push "backend nestjs (restaurante)" "$MEGA_DIR/proyecto/pnode/deploy"
-build_and_push "frontend nextjs (restaurante)" "$MEGA_DIR/proyecto/pnode_next/deploy"
+build_and_push "backend nestjs (estanco)" "$MEGA_DIR/proyecto/pnode/deploy"
+build_and_push "frontend nextjs (estanco)" "$MEGA_DIR/proyecto/pnode_next/deploy"
 build_and_push "nginx pokeapi" "$MEGA_DIR/proyecto/nest_api/deploy"
 
 echo ""
@@ -289,11 +289,11 @@ echo "  - http://www.$DOMAIN"
 echo "  - http://api.$DOMAIN"
 echo ""
 echo "  Para ver los logs de un pod:"
-echo "    microk8s kubectl logs -n proyecto-nest -l app=restaurante-backend"
-echo "    microk8s kubectl logs -n proyecto-nest -l app=restaurante-frontend"
+echo "    microk8s kubectl logs -n proyecto-nest -l app=estanco-backend"
+echo "    microk8s kubectl logs -n proyecto-nest -l app=estanco-frontend"
 echo ""
 echo "  Para probar alta disponibilidad:"
-echo "    microk8s kubectl delete pod -n proyecto-nest -l app=restaurante-backend"
+echo "    microk8s kubectl delete pod -n proyecto-nest -l app=estanco-backend"
 echo "    microk8s kubectl get pods -n proyecto-nest -w"
 echo ""
 echo "========================================"

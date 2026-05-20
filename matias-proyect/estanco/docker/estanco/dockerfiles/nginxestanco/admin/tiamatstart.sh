@@ -22,7 +22,7 @@ load_entrypoint_nginx(){
 directorio_de_trabajo(){
     log "Cambiando directorio al proyecto Next.js..."
 
-    if cd /root/admin/node/proyectos/restaurante_frontend; then
+    if cd /root/admin/node/proyectos/estanco_frontend; then
         log "Directorio cambiado a: $(pwd)"
     else
         log "ERROR: No se pudo cambiar al directorio del proyecto Next.js"

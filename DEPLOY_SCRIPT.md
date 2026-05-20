@@ -57,8 +57,8 @@ cd /home/TiamatV1/proyecto_tfg
 
 ```bash
 # Crear directorios de los proyectos que se copian en los dockerfiles
-mkdir -p /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/prestaurante/estanco-arboleas-backend
-mkdir -p /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/prestaurante/estanco-arboleas-frontend
+mkdir -p /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/pestanco/estanco-arboleas-backend
+mkdir -p /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/pestanco/estanco-arboleas-frontend
 mkdir -p /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/nest_api/proyecto
 ```
 
@@ -66,10 +66,10 @@ mkdir -p /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/nest_api/proy
 
 ```bash
 # Copiar backend NestJS del estanco
-cp -r /home/TiamatV1/proyecto_tfg/estanco-arboleas-backend/* /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/prestaurante/estanco-arboleas-backend/
+cp -r /home/TiamatV1/proyecto_tfg/estanco-arboleas-backend/* /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/pestanco/estanco-arboleas-backend/
 
 # Copiar frontend Next.js del estanco
-cp -r /home/TiamatV1/proyecto_tfg/estanco-arboleas-frontend/* /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/prestaurante/estanco-arboleas-frontend/
+cp -r /home/TiamatV1/proyecto_tfg/estanco-arboleas-frontend/* /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/pestanco/estanco-arboleas-frontend/
 
 # Copiar proyecto nest_api
 cp -r /home/TiamatV1/proyecto_tfg/nest_api/proyecto/* /home/TiamatV1/proyecto_tfg/docker/megacrossover/proyecto/nest_api/proyecto/
@@ -121,7 +121,7 @@ docker-compose build
 docker-compose push
 ```
 
-### 3.5 Imagen del backend NestJS (restaurante)
+### 3.5 Imagen del backend NestJS (estanco)
 
 ```bash
 cd /home/TiamatV1/proyecto_tfg/docker/megacrossover/pnode/deploy
@@ -129,7 +129,7 @@ docker-compose build
 docker-compose push
 ```
 
-### 3.6 Imagen del frontend Next.js (restaurante)
+### 3.6 Imagen del frontend Next.js (estanco)
 
 ```bash
 cd /home/TiamatV1/proyecto_tfg/docker/megacrossover/pnode_next/deploy
@@ -185,8 +185,8 @@ microk8s kubectl get svc -n proyecto-nest
 microk8s kubectl get ingress -n proyecto-nest
 
 # Ver logs de un pod específico
-microk8s kubectl logs -n proyecto-nest -l app=restaurante-backend
-microk8s kubectl logs -n proyecto-nest -l app=restaurante-frontend
+microk8s kubectl logs -n proyecto-nest -l app=estanco-backend
+microk8s kubectl logs -n proyecto-nest -l app=estanco-frontend
 ```
 
 ---
@@ -198,7 +198,7 @@ microk8s kubectl logs -n proyecto-nest -l app=restaurante-frontend
 microk8s kubectl get pods -n proyecto-nest
 
 # Matar un pod del backend
-microk8s kubectl delete pod -n proyecto-nest -l app=restaurante-backend
+microk8s kubectl delete pod -n proyecto-nest -l app=estanco-backend
 
 # Ver cómo Kubernetes lo recrea automáticamente
 microk8s kubectl get pods -n proyecto-nest -w

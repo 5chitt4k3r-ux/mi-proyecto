@@ -6,7 +6,7 @@ load_entrypoint_base(){
 
 tiamatload_ciber(){
     LOG_DIR="/root/logs"
-    LOG_FILE="$LOG_DIR/cttiamatrestaurante_ports.log"
+    LOG_FILE="$LOG_DIR/cttiamatestanco_ports.log"
     
     echo "=== PORT AUDITORIO ===" >> "$LOG_FILE"
     echo "Container: ${CONTENEDOR}" >> "$LOG_FILE"
@@ -32,7 +32,7 @@ tiamatscan(){
 }
 
 main () {
-    touch /root/logs/cttiamatrestaurante_ports.log
+    touch /root/logs/cttiamatestanco_ports.log
     load_entrypoint_base
     tiamatscan &
 }

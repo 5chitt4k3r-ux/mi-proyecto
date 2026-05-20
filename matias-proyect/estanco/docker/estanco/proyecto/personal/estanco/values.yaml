@@ -21,9 +21,9 @@ postgres:
     storageClassName: "microk8s-hostpath"
 
 backend:
-  name: restaurante-backend
+  name: estanco-backend
   image:
-    repository: kuklusklan/restaurante_backend01
+    repository: kuklusklan/estanco_backend01
     tag: latest
     pullPolicy: Always
   replicas: 2
@@ -37,9 +37,9 @@ backend:
     nodePort: 30080
 
 frontend:
-  name: restaurante-frontend
+  name: estanco-frontend
   image:
-    repository: kuklusklan/restaurante_frontend01
+    repository: kuklusklan/estanco_frontend01
     tag: latest
     pullPolicy: Always
   replicas: 2
@@ -62,20 +62,20 @@ ingress:
   hosts:
     # Frontend - www.vuelaguadalinfogarrucha.eu y vuelaguadalinfogarrucha.eu
     - host: "vuelaguadalinfogarrucha.eu"
-      serviceName: restaurante-frontend
+      serviceName: estanco-frontend
       servicePort: 3000
       paths:
         - path: /
           pathType: Prefix
     - host: "www.vuelaguadalinfogarrucha.eu"
-      serviceName: restaurante-frontend
+      serviceName: estanco-frontend
       servicePort: 3000
       paths:
         - path: /
           pathType: Prefix
     # Backend API - api.vuelaguadalinfo.eu
     - host: "api.vuelaguadalinfogarrucha.eu"
-      serviceName: restaurante-backend
+      serviceName: estanco-backend
       servicePort: 4000
       paths:
         - path: /

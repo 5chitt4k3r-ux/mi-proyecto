@@ -2,11 +2,11 @@ services:
   web:
     build:
       context: ../../../
-      dockerfile: ./dockerfiles/nest/tiamatrestaurante
+      dockerfile: ./dockerfiles/nest/tiamatestanco
       args:
         - INICIALES=tiamat
-    container_name: cttiamatrestaurante
-    image: kuklusklan/restaurante_backend01
+    container_name: cttiamatestanco
+    image: kuklusklan/estanco_backend01
     ports:
       - 3000:3000
     env_file:
